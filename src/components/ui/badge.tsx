@@ -8,10 +8,12 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
+        default:
+          'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
         secondary:
           'border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90',
-        destructive: 'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90',
+        destructive:
+          'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90',
         success:
           'border-transparent bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100 [a&]:hover:bg-green-200/90',
         warning:
@@ -30,7 +32,13 @@ function Badge({
   variant,
   ...props
 }: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants>) {
-  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+  return (
+    <span
+      data-slot="badge"
+      className={cn(badgeVariants({ variant }), className)}
+      {...props}
+    />
+  )
 }
 
 export { Badge, badgeVariants }

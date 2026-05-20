@@ -73,7 +73,10 @@ function ClientsPage() {
             <TableBody>
               {clients.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                  <TableCell
+                    colSpan={5}
+                    className="text-center text-muted-foreground py-8"
+                  >
                     No hay clientes registrados.
                   </TableCell>
                 </TableRow>
@@ -127,12 +130,16 @@ function ClientsPage() {
         onSave={handleSave}
       />
 
-      <Dialog open={!!deleteConfirmId} onOpenChange={() => setDeleteConfirmId(null)}>
+      <Dialog
+        open={!!deleteConfirmId}
+        onOpenChange={() => setDeleteConfirmId(null)}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Eliminar cliente</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que deseas eliminar este cliente? Esta acción no se puede deshacer.
+              ¿Estás seguro de que deseas eliminar este cliente? Esta acción no
+              se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

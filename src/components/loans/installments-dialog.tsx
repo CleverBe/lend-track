@@ -24,7 +24,13 @@ import {
 } from '@/components/ui/table'
 import { useLoans } from '@/lib/loans-store'
 import type { Installment } from '@/lib/loans-store'
-import { formatCurrency, formatDate, isDueSoon, isOverdue, todayStr } from '@/lib/utils'
+import {
+  formatCurrency,
+  formatDate,
+  isDueSoon,
+  isOverdue,
+  todayStr,
+} from '@/lib/utils'
 
 function installmentRowClass(inst: Installment) {
   if (inst.status === 'paid') return ''
@@ -40,7 +46,13 @@ type EditingInst = {
   mode: 'pay' | 'edit'
 }
 
-export function InstallmentsDialog({ loanId, clientName }: { loanId: string; clientName: string }) {
+export function InstallmentsDialog({
+  loanId,
+  clientName,
+}: {
+  loanId: string
+  clientName: string
+}) {
   const {
     getInstallmentsByLoanId,
     markInstallmentPaid,
@@ -72,15 +84,26 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
 
   function openPayDialog(inst: Installment) {
     setPaymentDate(todayStr())
-    setEditingInst({ id: inst.id, number: inst.number, amount: inst.amount, mode: 'pay' })
+    setEditingInst({
+      id: inst.id,
+      number: inst.number,
+      amount: inst.amount,
+      mode: 'pay',
+    })
   }
 
   function openEditDialog(inst: Installment) {
     setPaymentDate(inst.paidAt || todayStr())
-    setEditingInst({ id: inst.id, number: inst.number, amount: inst.amount, mode: 'edit' })
+    setEditingInst({
+      id: inst.id,
+      number: inst.number,
+      amount: inst.amount,
+      mode: 'edit',
+    })
   }
 
-  const dialogTitle = editingInst?.mode === 'pay' ? 'Confirmar Pago' : 'Editar Fecha'
+  const dialogTitle =
+    editingInst?.mode === 'pay' ? 'Confirmar Pago' : 'Editar Fecha'
   const dialogDesc = editingInst && (
     <>
       Cuota #{editingInst.number} — {formatCurrency(editingInst.amount)}
@@ -113,8 +136,8 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
           <DialogHeader>
             <DialogTitle>Cuotas — {clientName}</DialogTitle>
             <DialogDescription>
-              {installments.filter((i) => i.status === 'pending').length} pendientes de{' '}
-              {installments.length}
+              {installments.filter((i) => i.status === 'pending').length}{' '}
+              pendientes de {installments.length}
             </DialogDescription>
           </DialogHeader>
           <Table>
@@ -135,16 +158,26 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
                   <TableCell>{formatDate(inst.dueDate)}</TableCell>
                   <TableCell>{formatCurrency(inst.amount)}</TableCell>
                   <TableCell>{statusBadge(inst)}</TableCell>
-                  <TableCell>{inst.paidAt ? formatDate(inst.paidAt) : '-'}</TableCell>
+                  <TableCell>
+                    {inst.paidAt ? formatDate(inst.paidAt) : '-'}
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
                       {inst.status === 'pending' ? (
-                        <Button variant="secondary" size="sm" onClick={() => openPayDialog(inst)}>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => openPayDialog(inst)}
+                        >
                           Pagar
                         </Button>
                       ) : (
                         <>
-                          <Button variant="outline" size="sm" onClick={() => openEditDialog(inst)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openEditDialog(inst)}
+                          >
                             Fecha
                           </Button>
                           <Button
@@ -191,7 +224,9 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
               onChange={(e) => setPaymentDate(e.target.value)}
             />
             {!isDateValid && (
-              <p className="text-sm text-destructive">Selecciona una fecha válida.</p>
+              <p className="text-sm text-destructive">
+                Selecciona una fecha válida.
+              </p>
             )}
           </div>
           <DialogFooter>

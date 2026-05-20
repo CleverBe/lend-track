@@ -92,7 +92,9 @@ function daysAgo(n: number) {
   return d.toISOString().split('T')[0]
 }
 
-function buildMockLoan(overrides: Partial<Loan> & { clientName: string; clientId: string }): Loan {
+function buildMockLoan(
+  overrides: Partial<Loan> & { clientName: string; clientId: string },
+): Loan {
   const defaults = {
     id: crypto.randomUUID(),
     amount: 0,
@@ -111,7 +113,12 @@ function buildMockLoan(overrides: Partial<Loan> & { clientName: string; clientId
   return loan
 }
 
-function buildMockInstallments(loan: Loan, paidUpTo = 0, startOffset = 0, payDates?: string[]) {
+function buildMockInstallments(
+  loan: Loan,
+  paidUpTo = 0,
+  startOffset = 0,
+  payDates?: string[],
+) {
   const result: Installment[] = []
   const start = new Date(loan.startDate + 'T00:00:00')
   start.setDate(start.getDate() + startOffset)
@@ -208,7 +215,12 @@ function LoansProvider({ children }: { children: ReactNode }) {
         startOffset: 0,
         payDates: [daysAgo(60), daysAgo(30), daysAgo(0)],
       },
-      { loanId: 'mock-2', paidUpTo: 2, startOffset: 0, payDates: [daysAgo(45), daysAgo(30)] },
+      {
+        loanId: 'mock-2',
+        paidUpTo: 2,
+        startOffset: 0,
+        payDates: [daysAgo(45), daysAgo(30)],
+      },
       {
         loanId: 'mock-3',
         paidUpTo: 3,
@@ -242,7 +254,9 @@ function LoansProvider({ children }: { children: ReactNode }) {
   function markInstallmentPaid(id: string, date: string) {
     setInstallments((prev) =>
       prev.map((inst) =>
-        inst.id === id ? { ...inst, status: 'paid' as const, paidAt: date } : inst,
+        inst.id === id
+          ? { ...inst, status: 'paid' as const, paidAt: date }
+          : inst,
       ),
     )
   }
@@ -250,7 +264,9 @@ function LoansProvider({ children }: { children: ReactNode }) {
   function markInstallmentPending(id: string) {
     setInstallments((prev) =>
       prev.map((inst) =>
-        inst.id === id ? { ...inst, status: 'pending' as const, paidAt: undefined } : inst,
+        inst.id === id
+          ? { ...inst, status: 'pending' as const, paidAt: undefined }
+          : inst,
       ),
     )
   }

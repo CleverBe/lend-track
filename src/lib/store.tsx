@@ -55,7 +55,9 @@ function ClientsProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ClientsContext.Provider value={{ clients, addClient, updateClient, deleteClient }}>
+    <ClientsContext.Provider
+      value={{ clients, addClient, updateClient, deleteClient }}
+    >
       {children}
     </ClientsContext.Provider>
   )
@@ -63,7 +65,8 @@ function ClientsProvider({ children }: { children: ReactNode }) {
 
 function useClients() {
   const context = useContext(ClientsContext)
-  if (!context) throw new Error('useClients must be used within a ClientsProvider')
+  if (!context)
+    throw new Error('useClients must be used within a ClientsProvider')
   return context
 }
 

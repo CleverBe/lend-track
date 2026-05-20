@@ -18,11 +18,18 @@ import type { Loan, Installment } from '@/lib/loans-store'
 import { formatCurrency, formatDate, isDueSoon, isOverdue } from '@/lib/utils'
 import { modalityLabels } from '@/lib/loans-store'
 
-function loanRowClass(status: 'paid' | 'partial' | 'pending', insts: Installment[]) {
+function loanRowClass(
+  status: 'paid' | 'partial' | 'pending',
+  insts: Installment[],
+) {
   if (status === 'paid') return ''
-  const hasOverdue = insts.some((i) => i.status === 'pending' && isOverdue(i.dueDate))
+  const hasOverdue = insts.some(
+    (i) => i.status === 'pending' && isOverdue(i.dueDate),
+  )
   if (hasOverdue) return 'bg-destructive/10'
-  const hasDueSoon = insts.some((i) => i.status === 'pending' && isDueSoon(i.dueDate))
+  const hasDueSoon = insts.some(
+    (i) => i.status === 'pending' && isDueSoon(i.dueDate),
+  )
   if (hasDueSoon) return 'bg-yellow-50 dark:bg-yellow-950/20'
   return ''
 }
@@ -36,7 +43,8 @@ function SortIcon({
   sortKey: string
   sortDir: string
 }) {
-  if (sortKey !== column) return <ArrowUpDown className="size-3.5 ml-1 inline" />
+  if (sortKey !== column)
+    return <ArrowUpDown className="size-3.5 ml-1 inline" />
   return sortDir === 'asc' ? (
     <ArrowUp className="size-3.5 ml-1 inline" />
   ) : (
@@ -50,10 +58,16 @@ type LoanTableProps = {
   onDelete: (loanId: string) => void
 }
 
-export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps) {
+export function LoanTable({
+  loans,
+  showClient = true,
+  onDelete,
+}: LoanTableProps) {
   const { installments, getLoanStatus, getPendingAmount } = useLoans()
 
-  const [sortKey, setSortKey] = useState<'clientName' | 'startDate' | 'status'>('startDate')
+  const [sortKey, setSortKey] = useState<'clientName' | 'startDate' | 'status'>(
+    'startDate',
+  )
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   function toggleSort(key: typeof sortKey) {
@@ -93,7 +107,11 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
   }, [installments])
 
   if (loans.length === 0) {
-    return <p className="text-center text-muted-foreground py-8">No hay préstamos registrados.</p>
+    return (
+      <p className="text-center text-muted-foreground py-8">
+        No hay préstamos registrados.
+      </p>
+    )
   }
 
   return (
@@ -106,7 +124,12 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
                 className="flex items-center gap-1 font-medium"
                 onClick={() => toggleSort('clientName')}
               >
-                Cliente <SortIcon column="clientName" sortKey={sortKey} sortDir={sortDir} />
+                Cliente{' '}
+                <SortIcon
+                  column="clientName"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                />
               </button>
             </TableHead>
           )}
@@ -121,7 +144,8 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
               className="flex items-center gap-1 font-medium"
               onClick={() => toggleSort('status')}
             >
-              Estado <SortIcon column="status" sortKey={sortKey} sortDir={sortDir} />
+              Estado{' '}
+              <SortIcon column="status" sortKey={sortKey} sortDir={sortDir} />
             </button>
           </TableHead>
           <TableHead>Pendiente</TableHead>
@@ -130,7 +154,12 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
               className="flex items-center gap-1 font-medium"
               onClick={() => toggleSort('startDate')}
             >
-              Inicio <SortIcon column="startDate" sortKey={sortKey} sortDir={sortDir} />
+              Inicio{' '}
+              <SortIcon
+                column="startDate"
+                sortKey={sortKey}
+                sortDir={sortDir}
+              />
             </button>
           </TableHead>
           <TableHead className="w-15"></TableHead>
@@ -160,7 +189,9 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
               <TableCell>{loan.interestRate}%</TableCell>
               <TableCell>{loan.installments}</TableCell>
               <TableCell>{formatCurrency(loan.paymentPerPeriod)}</TableCell>
-              <TableCell className="font-semibold">{formatCurrency(loan.totalToPay)}</TableCell>
+              <TableCell className="font-semibold">
+                {formatCurrency(loan.totalToPay)}
+              </TableCell>
               <TableCell>
                 <LoanStatusBadge loanId={loan.id} />
               </TableCell>
@@ -169,12 +200,19 @@ export function LoanTable({ loans, showClient = true, onDelete }: LoanTableProps
               </TableCell>
               <TableCell>{formatDate(loan.startDate)}</TableCell>
               <TableCell>
-                <Button variant="destructive" size="icon" onClick={() => onDelete(loan.id)}>
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  onClick={() => onDelete(loan.id)}
+                >
                   <Trash2 />
                 </Button>
               </TableCell>
               <TableCell>
-                <InstallmentsDialog loanId={loan.id} clientName={loan.clientName} />
+                <InstallmentsDialog
+                  loanId={loan.id}
+                  clientName={loan.clientName}
+                />
               </TableCell>
             </TableRow>
           )

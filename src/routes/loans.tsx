@@ -45,13 +45,16 @@ function LoansPage() {
   const [open, setOpen] = useState(false)
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
 
-  const [selectedStatuses, setSelectedStatuses] = useState<LoanStatus[]>(allStatuses)
+  const [selectedStatuses, setSelectedStatuses] =
+    useState<LoanStatus[]>(allStatuses)
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
 
   function toggleStatus(status: LoanStatus) {
     setSelectedStatuses((prev) =>
-      prev.includes(status) ? prev.filter((s) => s !== status) : [...prev, status],
+      prev.includes(status)
+        ? prev.filter((s) => s !== status)
+        : [...prev, status],
     )
   }
 
@@ -65,7 +68,8 @@ function LoansPage() {
     })
   }, [loans, selectedStatuses, dateFrom, dateTo, getLoanStatus])
 
-  const hasActiveFilters = selectedStatuses.length < allStatuses.length || !!dateFrom || !!dateTo
+  const hasActiveFilters =
+    selectedStatuses.length < allStatuses.length || !!dateFrom || !!dateTo
 
   function clearFilters() {
     setSelectedStatuses(allStatuses)
@@ -112,7 +116,10 @@ function LoansPage() {
 
             <div className="flex items-end gap-2">
               <div className="space-y-1">
-                <Label htmlFor="dateFrom" className="text-xs text-muted-foreground">
+                <Label
+                  htmlFor="dateFrom"
+                  className="text-xs text-muted-foreground"
+                >
                   Desde
                 </Label>
                 <Input
@@ -124,7 +131,10 @@ function LoansPage() {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="dateTo" className="text-xs text-muted-foreground">
+                <Label
+                  htmlFor="dateTo"
+                  className="text-xs text-muted-foreground"
+                >
                   Hasta
                 </Label>
                 <Input
@@ -138,7 +148,12 @@ function LoansPage() {
             </div>
 
             {hasActiveFilters && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearFilters}
+                className="gap-1"
+              >
                 <X className="size-4" /> Limpiar
               </Button>
             )}
@@ -163,13 +178,16 @@ function LoansPage() {
         }}
       />
 
-      <Dialog open={!!deleteConfirmId} onOpenChange={() => setDeleteConfirmId(null)}>
+      <Dialog
+        open={!!deleteConfirmId}
+        onOpenChange={() => setDeleteConfirmId(null)}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Eliminar préstamo</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que deseas eliminar este préstamo? También se eliminarán todas sus
-              cuotas. Esta acción no se puede deshacer.
+              ¿Estás seguro de que deseas eliminar este préstamo? También se
+              eliminarán todas sus cuotas. Esta acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

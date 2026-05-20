@@ -120,13 +120,16 @@ function ClientDetailPage() {
         }}
       />
 
-      <Dialog open={!!deleteConfirmId} onOpenChange={() => setDeleteConfirmId(null)}>
+      <Dialog
+        open={!!deleteConfirmId}
+        onOpenChange={() => setDeleteConfirmId(null)}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Eliminar préstamo</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que deseas eliminar este préstamo? También se eliminarán todas sus
-              cuotas. Esta acción no se puede deshacer.
+              ¿Estás seguro de que deseas eliminar este préstamo? También se
+              eliminarán todas sus cuotas. Esta acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

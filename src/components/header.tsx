@@ -63,7 +63,9 @@ function Header() {
       })
     }
 
-    result.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
+    result.sort(
+      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(),
+    )
     return result
   }, [installments, loans])
 
@@ -115,7 +117,9 @@ function Header() {
                   <DropdownMenuItem key={item.path} asChild>
                     <Link
                       to={item.path}
-                      className={location.pathname === item.path ? 'font-semibold' : ''}
+                      className={
+                        location.pathname === item.path ? 'font-semibold' : ''
+                      }
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
@@ -178,7 +182,9 @@ function Header() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{n.clientName}</p>
+                        <p className="text-sm font-medium truncate">
+                          {n.clientName}
+                        </p>
                         <p className="text-xs text-muted-foreground">
                           Cuota #{n.installment} — {formatCurrency(n.amount)}
                         </p>
@@ -202,7 +208,10 @@ function Header() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="size-10 rounded-full p-0 select-none">
+              <Button
+                variant="ghost"
+                className="size-10 rounded-full p-0 select-none"
+              >
                 <Avatar>
                   <AvatarImage src="/images/user_avatar.jpg" alt="Usuario" />
                 </Avatar>
@@ -219,7 +228,9 @@ function Header() {
               <DropdownMenuItem>Perfil</DropdownMenuItem>
               <DropdownMenuItem>Configuraciones</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">Cerrar Sesión</DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive">
+                Cerrar Sesión
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

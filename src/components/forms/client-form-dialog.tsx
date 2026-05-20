@@ -33,7 +33,12 @@ type ClientFormDialogProps = {
   onSave: (data: ClientForm) => void
 }
 
-export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientFormDialogProps) {
+export function ClientFormDialog({
+  open,
+  onOpenChange,
+  client,
+  onSave,
+}: ClientFormDialogProps) {
   const {
     register,
     handleSubmit,
@@ -61,7 +66,13 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
           phone: client.phone,
         })
       } else {
-        reset({ firstName: '', lastName: '', idNumber: '', address: '', phone: '' })
+        reset({
+          firstName: '',
+          lastName: '',
+          idNumber: '',
+          address: '',
+          phone: '',
+        })
       }
     }
   }, [open, client, reset])
@@ -70,9 +81,13 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{client ? 'Editar Cliente' : 'Nuevo Cliente'}</DialogTitle>
+          <DialogTitle>
+            {client ? 'Editar Cliente' : 'Nuevo Cliente'}
+          </DialogTitle>
           <DialogDescription>
-            {client ? 'Modifica los datos del cliente.' : 'Ingresa los datos del nuevo cliente.'}
+            {client
+              ? 'Modifica los datos del cliente.'
+              : 'Ingresa los datos del nuevo cliente.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -83,14 +98,18 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
                 <Label htmlFor="firstName">Nombre</Label>
                 <Input id="firstName" {...register('firstName')} />
                 {errors.firstName && (
-                  <p className="text-sm text-destructive">{errors.firstName.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.firstName.message}
+                  </p>
                 )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">Apellido</Label>
                 <Input id="lastName" {...register('lastName')} />
                 {errors.lastName && (
-                  <p className="text-sm text-destructive">{errors.lastName.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.lastName.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -98,28 +117,42 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
               <Label htmlFor="idNumber">Cédula</Label>
               <Input id="idNumber" {...register('idNumber')} />
               {errors.idNumber && (
-                <p className="text-sm text-destructive">{errors.idNumber.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.idNumber.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="address">Dirección</Label>
               <Input id="address" {...register('address')} />
               {errors.address && (
-                <p className="text-sm text-destructive">{errors.address.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.address.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Teléfono</Label>
               <Input id="phone" {...register('phone')} />
-              {errors.phone && <p className="text-sm text-destructive">{errors.phone.message}</p>}
+              {errors.phone && (
+                <p className="text-sm text-destructive">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
           </div>
 
           <DialogFooter>
-            <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => onOpenChange(false)}
+            >
               Cancelar
             </Button>
-            <Button type="submit">{client ? 'Guardar Cambios' : 'Crear Cliente'}</Button>
+            <Button type="submit">
+              {client ? 'Guardar Cambios' : 'Crear Cliente'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

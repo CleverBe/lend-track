@@ -125,7 +125,10 @@ export function LoanFormDialog({
   }, [open, defaultClientId, reset, defaultValues, setValue])
 
   useEffect(() => {
-    if (pendingClientId.current && clients.some((c) => c.id === pendingClientId.current)) {
+    if (
+      pendingClientId.current &&
+      clients.some((c) => c.id === pendingClientId.current)
+    ) {
       setValue('clientId', pendingClientId.current)
       pendingClientId.current = null
     }
@@ -156,7 +159,8 @@ export function LoanFormDialog({
           <DialogHeader>
             <DialogTitle>Nuevo Préstamo</DialogTitle>
             <DialogDescription>
-              Ingresa los datos del préstamo. Los cálculos se actualizarán automáticamente.
+              Ingresa los datos del préstamo. Los cálculos se actualizarán
+              automáticamente.
             </DialogDescription>
           </DialogHeader>
 
@@ -175,7 +179,10 @@ export function LoanFormDialog({
                   ) : (
                     <div className="flex gap-2">
                       <div className="flex-1">
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
                           <SelectTrigger id="client">
                             <SelectValue placeholder="Seleccionar cliente" />
                           </SelectTrigger>
@@ -202,7 +209,9 @@ export function LoanFormDialog({
                 }
               />
               {errors.clientId && (
-                <p className="text-sm text-destructive">{errors.clientId.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.clientId.message}
+                </p>
               )}
             </div>
 
@@ -216,7 +225,11 @@ export function LoanFormDialog({
                 placeholder="0.00"
                 {...register('amount')}
               />
-              {errors.amount && <p className="text-sm text-destructive">{errors.amount.message}</p>}
+              {errors.amount && (
+                <p className="text-sm text-destructive">
+                  {errors.amount.message}
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -231,17 +244,21 @@ export function LoanFormDialog({
                         <SelectValue placeholder="Seleccionar" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(modalityLabels).map(([value, label]) => (
-                          <SelectItem key={value} value={value}>
-                            {label}
-                          </SelectItem>
-                        ))}
+                        {Object.entries(modalityLabels).map(
+                          ([value, label]) => (
+                            <SelectItem key={value} value={value}>
+                              {label}
+                            </SelectItem>
+                          ),
+                        )}
                       </SelectContent>
                     </Select>
                   )}
                 />
                 {errors.modality && (
-                  <p className="text-sm text-destructive">{errors.modality.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.modality.message}
+                  </p>
                 )}
               </div>
 
@@ -256,7 +273,9 @@ export function LoanFormDialog({
                   {...register('interestRate')}
                 />
                 {errors.interestRate && (
-                  <p className="text-sm text-destructive">{errors.interestRate.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.interestRate.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -273,7 +292,9 @@ export function LoanFormDialog({
                   {...register('installments')}
                 />
                 {errors.installments && (
-                  <p className="text-sm text-destructive">{errors.installments.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.installments.message}
+                  </p>
                 )}
               </div>
 
@@ -281,7 +302,9 @@ export function LoanFormDialog({
                 <Label htmlFor="startDate">Fecha de inicio</Label>
                 <Input id="startDate" type="date" {...register('startDate')} />
                 {errors.startDate && (
-                  <p className="text-sm text-destructive">{errors.startDate.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.startDate.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -290,13 +313,17 @@ export function LoanFormDialog({
               <Card className="bg-muted/40 border-dashed">
                 <CardContent className="p-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Interés generado:</span>
+                    <span className="text-muted-foreground">
+                      Interés generado:
+                    </span>
                     <span className="font-medium">
                       {formatCurrency(calculations.interestGenerated)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Pago por período:</span>
+                    <span className="text-muted-foreground">
+                      Pago por período:
+                    </span>
                     <span className="font-medium">
                       {formatCurrency(calculations.paymentPerPeriod)}
                     </span>
@@ -311,7 +338,11 @@ export function LoanFormDialog({
           </div>
 
           <DialogFooter>
-            <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => onOpenChange(false)}
+            >
               Cancelar
             </Button>
             <Button type="submit">Crear Préstamo</Button>

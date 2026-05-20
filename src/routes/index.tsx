@@ -1,5 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Users, HandCoins, ArrowRightLeft, DollarSign, Clock, CheckCircle2 } from 'lucide-react'
+import {
+  Users,
+  HandCoins,
+  ArrowRightLeft,
+  DollarSign,
+  Clock,
+  CheckCircle2,
+} from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useClients } from '@/lib/store'
@@ -15,10 +22,14 @@ function Home() {
 
   const totalLoaned = loans.reduce((sum, l) => sum + l.amount, 0)
   const totalPending = loans.reduce((sum, l) => sum + getPendingAmount(l.id), 0)
-  const totalPaid = loans.reduce((sum, l) => sum + l.totalToPay - getPendingAmount(l.id), 0)
+  const totalPaid = loans.reduce(
+    (sum, l) => sum + l.totalToPay - getPendingAmount(l.id),
+    0,
+  )
 
   const activeLoans = loans.filter(
-    (l) => getLoanStatus(l.id) === 'pending' || getLoanStatus(l.id) === 'partial',
+    (l) =>
+      getLoanStatus(l.id) === 'pending' || getLoanStatus(l.id) === 'partial',
   ).length
 
   const paidLoans = loans.filter((l) => getLoanStatus(l.id) === 'paid').length
@@ -66,7 +77,9 @@ function Home() {
     <main className="container mx-auto py-10 space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Panel de Control</h1>
-        <p className="text-muted-foreground mt-1">Resumen general del sistema de préstamos</p>
+        <p className="text-muted-foreground mt-1">
+          Resumen general del sistema de préstamos
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,7 +95,9 @@ function Home() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metric.value}</div>
-                <p className="text-xs text-muted-foreground mt-1">{metric.description}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {metric.description}
+                </p>
               </CardContent>
             </Card>
           )
