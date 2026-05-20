@@ -75,7 +75,7 @@ function ClientsPage() {
                 <TableRow>
                   <TableCell
                     colSpan={5}
-                    className="text-center text-muted-foreground py-8"
+                    className="text-muted-foreground py-8 text-center"
                   >
                     No hay clientes registrados.
                   </TableCell>
@@ -87,7 +87,7 @@ function ClientsPage() {
                     <Link
                       to="/clients/$clientId"
                       params={{ clientId: client.id }}
-                      className="hover:underline font-medium"
+                      className="font-medium hover:underline"
                     >
                       {client.firstName} {client.lastName}
                     </Link>

@@ -44,11 +44,11 @@ function SortIcon({
   sortDir: string
 }) {
   if (sortKey !== column)
-    return <ArrowUpDown className="size-3.5 ml-1 inline" />
+    return <ArrowUpDown className="ml-1 inline size-3.5" />
   return sortDir === 'asc' ? (
-    <ArrowUp className="size-3.5 ml-1 inline" />
+    <ArrowUp className="ml-1 inline size-3.5" />
   ) : (
-    <ArrowDown className="size-3.5 ml-1 inline" />
+    <ArrowDown className="ml-1 inline size-3.5" />
   )
 }
 
@@ -108,7 +108,7 @@ export function LoanTable({
 
   if (loans.length === 0) {
     return (
-      <p className="text-center text-muted-foreground py-8">
+      <p className="text-muted-foreground py-8 text-center">
         No hay préstamos registrados.
       </p>
     )
@@ -178,7 +178,7 @@ export function LoanTable({
                   <Link
                     to="/clients/$clientId"
                     params={{ clientId: loan.clientId }}
-                    className="hover:underline font-medium"
+                    className="font-medium hover:underline"
                   >
                     {loan.clientName}
                   </Link>

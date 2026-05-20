@@ -37,8 +37,8 @@ function ClientDetailPage() {
   if (!client) {
     return (
       <main className="container mx-auto py-10">
-        <div className="text-center space-y-4">
-          <p className="text-lg text-muted-foreground">Cliente no encontrado</p>
+        <div className="space-y-4 text-center">
+          <p className="text-muted-foreground text-lg">Cliente no encontrado</p>
           <Button asChild>
             <Link to="/clients">
               <ArrowLeft /> Volver a Clientes
@@ -50,7 +50,7 @@ function ClientDetailPage() {
   }
 
   return (
-    <main className="container mx-auto py-10 space-y-6">
+    <main className="container mx-auto space-y-6 py-10">
       <Button variant="ghost" asChild>
         <Link to="/clients" className="gap-2">
           <ArrowLeft className="size-4" />
@@ -64,7 +64,7 @@ function ClientDetailPage() {
             <CardTitle className="text-2xl">
               {client.firstName} {client.lastName}
             </CardTitle>
-            <p className="text-sm text-muted-foreground">{client.idNumber}</p>
+            <p className="text-muted-foreground text-sm">{client.idNumber}</p>
           </div>
           <Button variant="outline" onClick={() => setEditOpen(true)}>
             <Pencil /> Editar

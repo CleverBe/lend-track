@@ -183,7 +183,7 @@ export function InstallmentsDialog({
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="size-8 text-muted-foreground hover:text-destructive"
+                            className="text-muted-foreground hover:text-destructive size-8"
                             onClick={() => handleUndo(inst.id)}
                           >
                             <RotateCcw className="size-3.5" />
@@ -224,7 +224,7 @@ export function InstallmentsDialog({
               onChange={(e) => setPaymentDate(e.target.value)}
             />
             {!isDateValid && (
-              <p className="text-sm text-destructive">
+              <p className="text-destructive text-sm">
                 Selecciona una fecha válida.
               </p>
             )}

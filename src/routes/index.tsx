@@ -74,7 +74,7 @@ function Home() {
   ]
 
   return (
-    <main className="container mx-auto py-10 space-y-8">
+    <main className="container mx-auto space-y-8 py-10">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Panel de Control</h1>
         <p className="text-muted-foreground mt-1">
@@ -88,14 +88,14 @@ function Home() {
           return (
             <Card key={metric.title}>
               <CardHeader className="flex-row items-center justify-between gap-4">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-muted-foreground text-sm font-medium">
                   {metric.title}
                 </CardTitle>
-                <Icon className="size-5 text-muted-foreground" />
+                <Icon className="text-muted-foreground size-5" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{metric.value}</div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-muted-foreground mt-1 text-xs">
                   {metric.description}
                 </p>
               </CardContent>

@@ -172,7 +172,7 @@ export function LoanFormDialog({
                 control={control}
                 render={({ field }) =>
                   defaultClientId ? (
-                    <div className="flex h-9 items-center rounded-md border bg-muted px-3 text-sm text-muted-foreground">
+                    <div className="bg-muted text-muted-foreground flex h-9 items-center rounded-md border px-3 text-sm">
                       {clients.find((c) => c.id === defaultClientId)?.firstName}{' '}
                       {clients.find((c) => c.id === defaultClientId)?.lastName}
                     </div>
@@ -209,7 +209,7 @@ export function LoanFormDialog({
                 }
               />
               {errors.clientId && (
-                <p className="text-sm text-destructive">
+                <p className="text-destructive text-sm">
                   {errors.clientId.message}
                 </p>
               )}
@@ -226,7 +226,7 @@ export function LoanFormDialog({
                 {...register('amount')}
               />
               {errors.amount && (
-                <p className="text-sm text-destructive">
+                <p className="text-destructive text-sm">
                   {errors.amount.message}
                 </p>
               )}
@@ -256,7 +256,7 @@ export function LoanFormDialog({
                   )}
                 />
                 {errors.modality && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.modality.message}
                   </p>
                 )}
@@ -273,7 +273,7 @@ export function LoanFormDialog({
                   {...register('interestRate')}
                 />
                 {errors.interestRate && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.interestRate.message}
                   </p>
                 )}
@@ -292,7 +292,7 @@ export function LoanFormDialog({
                   {...register('installments')}
                 />
                 {errors.installments && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.installments.message}
                   </p>
                 )}
@@ -302,7 +302,7 @@ export function LoanFormDialog({
                 <Label htmlFor="startDate">Fecha de inicio</Label>
                 <Input id="startDate" type="date" {...register('startDate')} />
                 {errors.startDate && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.startDate.message}
                   </p>
                 )}
@@ -311,7 +311,7 @@ export function LoanFormDialog({
 
             {parsedAmount > 0 && parsedInstallments > 0 && (
               <Card className="bg-muted/40 border-dashed">
-                <CardContent className="p-4 space-y-2">
+                <CardContent className="space-y-2 p-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">
                       Interés generado:
@@ -328,7 +328,7 @@ export function LoanFormDialog({
                       {formatCurrency(calculations.paymentPerPeriod)}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm font-semibold border-t pt-2">
+                  <div className="flex justify-between border-t pt-2 text-sm font-semibold">
                     <span>Total a pagar:</span>
                     <span>{formatCurrency(calculations.totalToPay)}</span>
                   </div>

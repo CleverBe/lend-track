@@ -98,7 +98,7 @@ export function ClientFormDialog({
                 <Label htmlFor="firstName">Nombre</Label>
                 <Input id="firstName" {...register('firstName')} />
                 {errors.firstName && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.firstName.message}
                   </p>
                 )}
@@ -107,7 +107,7 @@ export function ClientFormDialog({
                 <Label htmlFor="lastName">Apellido</Label>
                 <Input id="lastName" {...register('lastName')} />
                 {errors.lastName && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-destructive text-sm">
                     {errors.lastName.message}
                   </p>
                 )}
@@ -117,7 +117,7 @@ export function ClientFormDialog({
               <Label htmlFor="idNumber">Cédula</Label>
               <Input id="idNumber" {...register('idNumber')} />
               {errors.idNumber && (
-                <p className="text-sm text-destructive">
+                <p className="text-destructive text-sm">
                   {errors.idNumber.message}
                 </p>
               )}
@@ -126,7 +126,7 @@ export function ClientFormDialog({
               <Label htmlFor="address">Dirección</Label>
               <Input id="address" {...register('address')} />
               {errors.address && (
-                <p className="text-sm text-destructive">
+                <p className="text-destructive text-sm">
                   {errors.address.message}
                 </p>
               )}
@@ -135,7 +135,7 @@ export function ClientFormDialog({
               <Label htmlFor="phone">Teléfono</Label>
               <Input id="phone" {...register('phone')} />
               {errors.phone && (
-                <p className="text-sm text-destructive">
+                <p className="text-destructive text-sm">
                   {errors.phone.message}
                 </p>
               )}

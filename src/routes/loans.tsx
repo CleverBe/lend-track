@@ -78,7 +78,7 @@ function LoansPage() {
   }
 
   return (
-    <main className="container mx-auto py-10 space-y-8">
+    <main className="container mx-auto space-y-8 py-10">
       <Card>
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle className="text-2xl">Préstamos</CardTitle>
@@ -95,7 +95,7 @@ function LoansPage() {
                   <Filter className="size-4" />
                   Estado
                   {selectedStatuses.length < allStatuses.length && (
-                    <span className="ml-1 rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                    <span className="bg-primary text-primary-foreground ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold">
                       {selectedStatuses.length}
                     </span>
                   )}
@@ -118,7 +118,7 @@ function LoansPage() {
               <div className="space-y-1">
                 <Label
                   htmlFor="dateFrom"
-                  className="text-xs text-muted-foreground"
+                  className="text-muted-foreground text-xs"
                 >
                   Desde
                 </Label>
@@ -133,7 +133,7 @@ function LoansPage() {
               <div className="space-y-1">
                 <Label
                   htmlFor="dateTo"
-                  className="text-xs text-muted-foreground"
+                  className="text-muted-foreground text-xs"
                 >
                   Hasta
                 </Label>

@@ -79,23 +79,23 @@ function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background">
+    <header className="bg-background sticky top-0 z-40 border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link
             to="/"
-            className="flex items-center gap-2 text-xl font-bold tracking-tight hover:text-primary transition-colors"
+            className="hover:text-primary flex items-center gap-2 text-xl font-bold tracking-tight transition-colors"
           >
             <img src="/logo.svg" alt="LendTrack" className="size-7" />
             LendTrack
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   location.pathname === item.path
                     ? 'bg-accent text-accent-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
@@ -138,7 +138,7 @@ function Header() {
               <Button variant="ghost" size="icon" className="relative">
                 <Bell />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold leading-none text-white select-none">
+                  <span className="bg-destructive absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full text-[9px] leading-none font-bold text-white select-none">
                     {notifications.length > 9 ? '9+' : notifications.length}
                   </span>
                 )}
@@ -157,7 +157,7 @@ function Header() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               {notifications.length === 0 ? (
-                <div className="px-3 py-6 text-center text-sm text-muted-foreground">
+                <div className="text-muted-foreground px-3 py-6 text-center text-sm">
                   No hay notificaciones pendientes
                 </div>
               ) : (
@@ -165,7 +165,7 @@ function Header() {
                   {notifications.map((n) => (
                     <DropdownMenuItem
                       key={n.id}
-                      className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
+                      className="flex cursor-pointer items-start gap-3 px-3 py-2.5"
                       onClick={() => {
                         navigate({
                           to: '/clients/$clientId',
@@ -182,11 +182,11 @@ function Header() {
                           <Clock className="size-4" />
                         )}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium">
                           {n.clientName}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-muted-foreground text-xs">
                           Cuota #{n.installment} — {formatCurrency(n.amount)}
                         </p>
                       </div>
@@ -196,7 +196,7 @@ function Header() {
                         >
                           {formatDate(n.dueDate)}
                         </p>
-                        <p className="text-[10px] text-muted-foreground">
+                        <p className="text-muted-foreground text-[10px]">
                           {n.overdue ? 'Vencida' : 'Próxima'}
                         </p>
                       </div>
