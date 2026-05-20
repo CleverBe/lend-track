@@ -51,7 +51,7 @@ type LoansContextType = {
 
 const LoansContext = createContext<LoansContextType | undefined>(undefined)
 
-function generateInstallments(loan: Loan): Installment[] {
+export function generateInstallments(loan: Loan): Installment[] {
   const result: Installment[] = []
   const start = new Date(loan.startDate + 'T00:00:00')
 
@@ -82,17 +82,17 @@ function generateInstallments(loan: Loan): Installment[] {
   return result
 }
 
-function todayStr() {
+export function todayStr() {
   return new Date().toISOString().split('T')[0]
 }
 
-function daysAgo(n: number) {
+export function daysAgo(n: number) {
   const d = new Date()
   d.setDate(d.getDate() - n)
   return d.toISOString().split('T')[0]
 }
 
-function buildMockLoan(
+export function buildMockLoan(
   overrides: Partial<Loan> & { clientName: string; clientId: string },
 ): Loan {
   const defaults = {
@@ -113,7 +113,7 @@ function buildMockLoan(
   return loan
 }
 
-function buildMockInstallments(
+export function buildMockInstallments(
   loan: Loan,
   paidUpTo = 0,
   startOffset = 0,
@@ -150,6 +150,25 @@ function buildMockInstallments(
   }
 
   return result
+}
+
+export function calcLoanStatus(
+  loanId: string,
+  installments: Installment[],
+): LoanStatus {
+  const insts = installments.filter((i) => i.loanId === loanId)
+  if (insts.length === 0) return 'pending'
+  const allPaid = insts.every((i) => i.status === 'paid')
+  const somePaid = insts.some((i) => i.status === 'paid')
+  if (allPaid) return 'paid'
+  if (somePaid) return 'partial'
+  return 'pending'
+}
+
+export function calcPendingAmount(loanId: string, installments: Installment[]) {
+  return installments
+    .filter((i) => i.loanId === loanId && i.status === 'pending')
+    .reduce((sum, i) => sum + i.amount, 0)
 }
 
 function LoansProvider({ children }: { children: ReactNode }) {
@@ -282,19 +301,11 @@ function LoansProvider({ children }: { children: ReactNode }) {
   }
 
   function getLoanStatus(loanId: string): LoanStatus {
-    const insts = installments.filter((i) => i.loanId === loanId)
-    if (insts.length === 0) return 'pending'
-    const allPaid = insts.every((i) => i.status === 'paid')
-    const somePaid = insts.some((i) => i.status === 'paid')
-    if (allPaid) return 'paid'
-    if (somePaid) return 'partial'
-    return 'pending'
+    return calcLoanStatus(loanId, installments)
   }
 
   function getPendingAmount(loanId: string) {
-    return installments
-      .filter((i) => i.loanId === loanId && i.status === 'pending')
-      .reduce((sum, i) => sum + i.amount, 0)
+    return calcPendingAmount(loanId, installments)
   }
 
   return (
