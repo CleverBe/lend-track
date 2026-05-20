@@ -16,14 +16,34 @@ Admin dashboard for tracking personal loans, clients, and installment payments. 
 
 ## Getting Started
 
+### Local
+
 ```bash
 npm install       # Install dependencies
 npm run dev       # Start dev server
 npm run build     # Build for production (tsr generate + tsc + vite build)
-npm run preview   # Preview production build
+npm run test      # Run tests (Vitest)
+npm run typecheck # Type-check without building
 npm run lint      # Run ESLint
 npm run format    # Format code with Prettier
+npm run preview   # Preview production build
 ```
+
+### Docker (development)
+
+```bash
+docker compose up -d --build   # Build and start dev server (http://localhost:5173)
+docker compose logs -f         # Follow logs
+docker compose down            # Stop
+```
+
+## Pre-commit Hooks
+
+On every commit, Husky runs:
+
+1. `lint-staged` — ESLint + Prettier on staged files
+2. `npm run test` — Unit tests
+3. `npm run typecheck` — TypeScript type checking
 
 ## Project Structure
 
