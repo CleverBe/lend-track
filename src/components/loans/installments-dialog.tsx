@@ -41,7 +41,12 @@ type EditingInst = {
 }
 
 export function InstallmentsDialog({ loanId, clientName }: { loanId: string; clientName: string }) {
-  const { getInstallmentsByLoanId, markInstallmentPaid, markInstallmentPending, updateInstallmentDate } = useLoans()
+  const {
+    getInstallmentsByLoanId,
+    markInstallmentPaid,
+    markInstallmentPending,
+    updateInstallmentDate,
+  } = useLoans()
   const [open, setOpen] = useState(false)
 
   const installments = getInstallmentsByLoanId(loanId)
@@ -77,7 +82,9 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
 
   const dialogTitle = editingInst?.mode === 'pay' ? 'Confirmar Pago' : 'Editar Fecha'
   const dialogDesc = editingInst && (
-    <>Cuota #{editingInst.number} — {formatCurrency(editingInst.amount)}</>
+    <>
+      Cuota #{editingInst.number} — {formatCurrency(editingInst.amount)}
+    </>
   )
   const saveLabel = editingInst?.mode === 'pay' ? 'Pagar' : 'Guardar'
 
@@ -106,7 +113,8 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
           <DialogHeader>
             <DialogTitle>Cuotas — {clientName}</DialogTitle>
             <DialogDescription>
-              {installments.filter((i) => i.status === 'pending').length} pendientes de {installments.length}
+              {installments.filter((i) => i.status === 'pending').length} pendientes de{' '}
+              {installments.length}
             </DialogDescription>
           </DialogHeader>
           <Table>
@@ -127,26 +135,16 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
                   <TableCell>{formatDate(inst.dueDate)}</TableCell>
                   <TableCell>{formatCurrency(inst.amount)}</TableCell>
                   <TableCell>{statusBadge(inst)}</TableCell>
-                  <TableCell>
-                    {inst.paidAt ? formatDate(inst.paidAt) : '-'}
-                  </TableCell>
+                  <TableCell>{inst.paidAt ? formatDate(inst.paidAt) : '-'}</TableCell>
                   <TableCell>
                     <div className="flex gap-1">
                       {inst.status === 'pending' ? (
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => openPayDialog(inst)}
-                        >
+                        <Button variant="secondary" size="sm" onClick={() => openPayDialog(inst)}>
                           Pagar
                         </Button>
                       ) : (
                         <>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => openEditDialog(inst)}
-                          >
+                          <Button variant="outline" size="sm" onClick={() => openEditDialog(inst)}>
                             Fecha
                           </Button>
                           <Button
@@ -173,13 +171,16 @@ export function InstallmentsDialog({ loanId, clientName }: { loanId: string; cli
         </DialogContent>
       </Dialog>
 
-      <Dialog open={!!editingInst} onOpenChange={(o) => { if (!o) setEditingInst(null) }}>
+      <Dialog
+        open={!!editingInst}
+        onOpenChange={(o) => {
+          if (!o) setEditingInst(null)
+        }}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>{dialogTitle}</DialogTitle>
-            <DialogDescription>
-              {dialogDesc}
-            </DialogDescription>
+            <DialogDescription>{dialogDesc}</DialogDescription>
           </DialogHeader>
           <div className="space-y-2 py-2">
             <Label htmlFor="pay-date">Fecha de pago</Label>

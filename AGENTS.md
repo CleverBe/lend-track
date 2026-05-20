@@ -7,12 +7,14 @@ npm run dev       # Start dev server
 npm run build     # Build for production (tsr generate + tsc + vite build)
 npm run generate  # Regenerate TanStack Router route tree
 npm run lint      # Run ESLint
+npm run format    # Format code with Prettier
 npm run preview   # Preview production build
 ```
 
-## Lint & Typecheck
+## Lint, Format & Typecheck
 
 - Run `npm run lint` for ESLint
+- Run `npm run format` to format code with Prettier
 - Run `npm run build` to typecheck with TypeScript
 
 ## Project Conventions

@@ -70,13 +70,9 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {client ? 'Editar Cliente' : 'Nuevo Cliente'}
-          </DialogTitle>
+          <DialogTitle>{client ? 'Editar Cliente' : 'Nuevo Cliente'}</DialogTitle>
           <DialogDescription>
-            {client
-              ? 'Modifica los datos del cliente.'
-              : 'Ingresa los datos del nuevo cliente.'}
+            {client ? 'Modifica los datos del cliente.' : 'Ingresa los datos del nuevo cliente.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -115,9 +111,7 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
             <div className="space-y-2">
               <Label htmlFor="phone">Teléfono</Label>
               <Input id="phone" {...register('phone')} />
-              {errors.phone && (
-                <p className="text-sm text-destructive">{errors.phone.message}</p>
-              )}
+              {errors.phone && <p className="text-sm text-destructive">{errors.phone.message}</p>}
             </div>
           </div>
 
@@ -125,9 +119,7 @@ export function ClientFormDialog({ open, onOpenChange, client, onSave }: ClientF
             <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>
-            <Button type="submit">
-              {client ? 'Guardar Cambios' : 'Crear Cliente'}
-            </Button>
+            <Button type="submit">{client ? 'Guardar Cambios' : 'Crear Cliente'}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

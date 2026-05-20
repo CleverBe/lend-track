@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { Plus } from "lucide-react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Controller, useForm, useWatch } from 'react-hook-form'
+import { Plus } from 'lucide-react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -13,52 +13,52 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { ClientFormDialog } from "@/components/forms/client-form-dialog";
-import type { Client } from "@/lib/store";
-import { modalityLabels } from "@/lib/loans-store";
-import type { Modality } from "@/lib/loans-store";
-import { formatCurrency } from "@/lib/utils";
+} from '@/components/ui/select'
+import { ClientFormDialog } from '@/components/forms/client-form-dialog'
+import type { Client } from '@/lib/store'
+import { modalityLabels } from '@/lib/loans-store'
+import type { Modality } from '@/lib/loans-store'
+import { formatCurrency } from '@/lib/utils'
 
 const loanSchema = z.object({
-  clientId: z.string().min(1, "Selecciona un cliente"),
-  amount: z.string().min(1, "El monto es obligatorio"),
-  modality: z.string().min(1, "Selecciona una modalidad"),
-  interestRate: z.string().min(1, "El interés es obligatorio"),
-  installments: z.string().min(1, "Las cuotas son obligatorias"),
-  startDate: z.string().min(1, "La fecha de inicio es obligatoria"),
-});
+  clientId: z.string().min(1, 'Selecciona un cliente'),
+  amount: z.string().min(1, 'El monto es obligatorio'),
+  modality: z.string().min(1, 'Selecciona una modalidad'),
+  interestRate: z.string().min(1, 'El interés es obligatorio'),
+  installments: z.string().min(1, 'Las cuotas son obligatorias'),
+  startDate: z.string().min(1, 'La fecha de inicio es obligatoria'),
+})
 
-type LoanForm = z.infer<typeof loanSchema>;
+type LoanForm = z.infer<typeof loanSchema>
 
 type LoanFormDialogProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  clients: Client[];
-  defaultClientId?: string;
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  clients: Client[]
+  defaultClientId?: string
   onSave: (data: {
-    clientId: string;
-    clientName: string;
-    amount: number;
-    modality: Modality;
-    interestRate: number;
-    installments: number;
-    startDate: string;
-    interestGenerated: number;
-    paymentPerPeriod: number;
-    totalToPay: number;
-  }) => void;
-  addClient: (client: Omit<Client, "id">) => string;
-};
+    clientId: string
+    clientName: string
+    amount: number
+    modality: Modality
+    interestRate: number
+    installments: number
+    startDate: string
+    interestGenerated: number
+    paymentPerPeriod: number
+    totalToPay: number
+  }) => void
+  addClient: (client: Omit<Client, 'id'>) => string
+}
 
 export function LoanFormDialog({
   open,
@@ -68,20 +68,20 @@ export function LoanFormDialog({
   onSave,
   addClient,
 }: LoanFormDialogProps) {
-  const [clientFormOpen, setClientFormOpen] = useState(false);
-  const pendingClientId = useRef<string | null>(null);
+  const [clientFormOpen, setClientFormOpen] = useState(false)
+  const pendingClientId = useRef<string | null>(null)
 
   const defaultValues = useMemo(
     () => ({
-      clientId: "",
-      amount: "",
-      modality: "",
-      interestRate: "",
-      installments: "",
-      startDate: "",
+      clientId: '',
+      amount: '',
+      modality: '',
+      interestRate: '',
+      installments: '',
+      startDate: '',
     }),
     [],
-  );
+  )
 
   const {
     register,
@@ -93,47 +93,47 @@ export function LoanFormDialog({
   } = useForm<LoanForm>({
     resolver: zodResolver(loanSchema),
     defaultValues,
-  });
+  })
 
-  const watchedAmount = useWatch({ control, name: "amount" });
-  const watchedRate = useWatch({ control, name: "interestRate" });
-  const watchedInstallments = useWatch({ control, name: "installments" });
+  const watchedAmount = useWatch({ control, name: 'amount' })
+  const watchedRate = useWatch({ control, name: 'interestRate' })
+  const watchedInstallments = useWatch({ control, name: 'installments' })
 
-  const parsedAmount = Number.parseFloat(watchedAmount) || 0;
-  const parsedRate = Number.parseFloat(watchedRate) || 0;
-  const parsedInstallments = Number.parseInt(watchedInstallments) || 0;
+  const parsedAmount = Number.parseFloat(watchedAmount) || 0
+  const parsedRate = Number.parseFloat(watchedRate) || 0
+  const parsedInstallments = Number.parseInt(watchedInstallments) || 0
 
   const calculations = useMemo(() => {
     if (!parsedAmount || !parsedRate || !parsedInstallments) {
-      return { interestGenerated: 0, paymentPerPeriod: 0, totalToPay: 0 };
+      return { interestGenerated: 0, paymentPerPeriod: 0, totalToPay: 0 }
     }
-    const totalInterest = parsedAmount * (parsedRate / 100);
-    const totalToPay = parsedAmount + totalInterest;
+    const totalInterest = parsedAmount * (parsedRate / 100)
+    const totalToPay = parsedAmount + totalInterest
     return {
       interestGenerated: totalInterest,
       paymentPerPeriod: totalToPay / parsedInstallments,
       totalToPay,
-    };
-  }, [parsedAmount, parsedRate, parsedInstallments]);
+    }
+  }, [parsedAmount, parsedRate, parsedInstallments])
 
   useEffect(() => {
     if (!open) {
-      reset(defaultValues);
+      reset(defaultValues)
     } else if (defaultClientId) {
-      setValue('clientId', defaultClientId);
+      setValue('clientId', defaultClientId)
     }
-  }, [open, defaultClientId, reset, defaultValues, setValue]);
+  }, [open, defaultClientId, reset, defaultValues, setValue])
 
   useEffect(() => {
     if (pendingClientId.current && clients.some((c) => c.id === pendingClientId.current)) {
-      setValue('clientId', pendingClientId.current);
-      pendingClientId.current = null;
+      setValue('clientId', pendingClientId.current)
+      pendingClientId.current = null
     }
-  });
+  })
 
   function onSubmit(data: LoanForm) {
-    const client = clients.find((c) => c.id === data.clientId);
-    if (!client) return;
+    const client = clients.find((c) => c.id === data.clientId)
+    if (!client) return
 
     onSave({
       clientId: data.clientId,
@@ -146,7 +146,7 @@ export function LoanFormDialog({
       interestGenerated: calculations.interestGenerated,
       paymentPerPeriod: calculations.paymentPerPeriod,
       totalToPay: calculations.totalToPay,
-    });
+    })
   }
 
   return (
@@ -156,8 +156,7 @@ export function LoanFormDialog({
           <DialogHeader>
             <DialogTitle>Nuevo Préstamo</DialogTitle>
             <DialogDescription>
-              Ingresa los datos del préstamo. Los cálculos se actualizarán
-              automáticamente.
+              Ingresa los datos del préstamo. Los cálculos se actualizarán automáticamente.
             </DialogDescription>
           </DialogHeader>
 
@@ -170,16 +169,13 @@ export function LoanFormDialog({
                 render={({ field }) =>
                   defaultClientId ? (
                     <div className="flex h-9 items-center rounded-md border bg-muted px-3 text-sm text-muted-foreground">
-                      {clients.find((c) => c.id === defaultClientId)?.firstName}{" "}
+                      {clients.find((c) => c.id === defaultClientId)?.firstName}{' '}
                       {clients.find((c) => c.id === defaultClientId)?.lastName}
                     </div>
                   ) : (
                     <div className="flex gap-2">
                       <div className="flex-1">
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
+                        <Select value={field.value} onValueChange={field.onChange}>
                           <SelectTrigger id="client">
                             <SelectValue placeholder="Seleccionar cliente" />
                           </SelectTrigger>
@@ -206,9 +202,7 @@ export function LoanFormDialog({
                 }
               />
               {errors.clientId && (
-                <p className="text-sm text-destructive">
-                  {errors.clientId.message}
-                </p>
+                <p className="text-sm text-destructive">{errors.clientId.message}</p>
               )}
             </div>
 
@@ -220,13 +214,9 @@ export function LoanFormDialog({
                 min="0"
                 step="0.01"
                 placeholder="0.00"
-                {...register("amount")}
+                {...register('amount')}
               />
-              {errors.amount && (
-                <p className="text-sm text-destructive">
-                  {errors.amount.message}
-                </p>
-              )}
+              {errors.amount && <p className="text-sm text-destructive">{errors.amount.message}</p>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -241,21 +231,17 @@ export function LoanFormDialog({
                         <SelectValue placeholder="Seleccionar" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(modalityLabels).map(
-                          ([value, label]) => (
-                            <SelectItem key={value} value={value}>
-                              {label}
-                            </SelectItem>
-                          ),
-                        )}
+                        {Object.entries(modalityLabels).map(([value, label]) => (
+                          <SelectItem key={value} value={value}>
+                            {label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   )}
                 />
                 {errors.modality && (
-                  <p className="text-sm text-destructive">
-                    {errors.modality.message}
-                  </p>
+                  <p className="text-sm text-destructive">{errors.modality.message}</p>
                 )}
               </div>
 
@@ -267,12 +253,10 @@ export function LoanFormDialog({
                   min="0"
                   step="0.01"
                   placeholder="0.00"
-                  {...register("interestRate")}
+                  {...register('interestRate')}
                 />
                 {errors.interestRate && (
-                  <p className="text-sm text-destructive">
-                    {errors.interestRate.message}
-                  </p>
+                  <p className="text-sm text-destructive">{errors.interestRate.message}</p>
                 )}
               </div>
             </div>
@@ -286,22 +270,18 @@ export function LoanFormDialog({
                   min="1"
                   step="1"
                   placeholder="0"
-                  {...register("installments")}
+                  {...register('installments')}
                 />
                 {errors.installments && (
-                  <p className="text-sm text-destructive">
-                    {errors.installments.message}
-                  </p>
+                  <p className="text-sm text-destructive">{errors.installments.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="startDate">Fecha de inicio</Label>
-                <Input id="startDate" type="date" {...register("startDate")} />
+                <Input id="startDate" type="date" {...register('startDate')} />
                 {errors.startDate && (
-                  <p className="text-sm text-destructive">
-                    {errors.startDate.message}
-                  </p>
+                  <p className="text-sm text-destructive">{errors.startDate.message}</p>
                 )}
               </div>
             </div>
@@ -310,17 +290,13 @@ export function LoanFormDialog({
               <Card className="bg-muted/40 border-dashed">
                 <CardContent className="p-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Interés generado:
-                    </span>
+                    <span className="text-muted-foreground">Interés generado:</span>
                     <span className="font-medium">
                       {formatCurrency(calculations.interestGenerated)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Pago por período:
-                    </span>
+                    <span className="text-muted-foreground">Pago por período:</span>
                     <span className="font-medium">
                       {formatCurrency(calculations.paymentPerPeriod)}
                     </span>
@@ -335,11 +311,7 @@ export function LoanFormDialog({
           </div>
 
           <DialogFooter>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => onOpenChange(false)}
-            >
+            <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>
             <Button type="submit">Crear Préstamo</Button>
@@ -357,5 +329,5 @@ export function LoanFormDialog({
         />
       </DialogContent>
     </Dialog>
-  );
+  )
 }

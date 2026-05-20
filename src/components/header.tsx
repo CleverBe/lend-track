@@ -1,10 +1,10 @@
-import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { AlertTriangle, Bell, Clock, Menu } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Link, useLocation, useNavigate } from '@tanstack/react-router'
+import { AlertTriangle, Bell, Clock, Menu } from 'lucide-react'
+import { useMemo, useState } from 'react'
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,44 +12,44 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useLoans } from "@/lib/loans-store";
-import { formatCurrency, isDueSoon, isOverdue } from "@/lib/utils";
+} from '@/components/ui/dropdown-menu'
+import { useLoans } from '@/lib/loans-store'
+import { formatCurrency, isDueSoon, isOverdue } from '@/lib/utils'
 
 const navItems = [
-  { path: "/clients", label: "Clientes" },
-  { path: "/loans", label: "Préstamos" },
-];
+  { path: '/clients', label: 'Clientes' },
+  { path: '/loans', label: 'Préstamos' },
+]
 
 type Notification = {
-  id: string;
-  clientId: string;
-  clientName: string;
-  installment: number;
-  dueDate: string;
-  amount: number;
-  overdue: boolean;
-  dueSoon: boolean;
-};
+  id: string
+  clientId: string
+  clientName: string
+  installment: number
+  dueDate: string
+  amount: number
+  overdue: boolean
+  dueSoon: boolean
+}
 
 function Header() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { installments, loans } = useLoans();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { installments, loans } = useLoans()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const notifications = useMemo(() => {
-    const result: Notification[] = [];
-    const loanMap = new Map(loans.map((l) => [l.id, l]));
+    const result: Notification[] = []
+    const loanMap = new Map(loans.map((l) => [l.id, l]))
 
     for (const inst of installments) {
-      if (inst.status !== "pending") continue;
-      const overdue = isOverdue(inst.dueDate);
-      const dueSoon = isDueSoon(inst.dueDate);
-      if (!overdue && !dueSoon) continue;
+      if (inst.status !== 'pending') continue
+      const overdue = isOverdue(inst.dueDate)
+      const dueSoon = isDueSoon(inst.dueDate)
+      if (!overdue && !dueSoon) continue
 
-      const loan = loanMap.get(inst.loanId);
-      if (!loan) continue;
+      const loan = loanMap.get(inst.loanId)
+      if (!loan) continue
 
       result.push({
         id: inst.id,
@@ -60,22 +60,20 @@ function Header() {
         amount: inst.amount,
         overdue,
         dueSoon,
-      });
+      })
     }
 
-    result.sort(
-      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(),
-    );
-    return result;
-  }, [installments, loans]);
+    result.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
+    return result
+  }, [installments, loans])
 
-  const overdueCount = notifications.filter((n) => n.overdue).length;
+  const overdueCount = notifications.filter((n) => n.overdue).length
 
   function formatDate(dateStr: string) {
-    return new Date(dateStr + "T00:00:00").toLocaleDateString("es-DO", {
-      day: "numeric",
-      month: "short",
-    });
+    return new Date(dateStr + 'T00:00:00').toLocaleDateString('es-DO', {
+      day: 'numeric',
+      month: 'short',
+    })
   }
 
   return (
@@ -96,8 +94,8 @@ function Header() {
                 to={item.path}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   location.pathname === item.path
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    ? 'bg-accent text-accent-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
                 }`}
               >
                 {item.label}
@@ -117,9 +115,7 @@ function Header() {
                   <DropdownMenuItem key={item.path} asChild>
                     <Link
                       to={item.path}
-                      className={
-                        location.pathname === item.path ? "font-semibold" : ""
-                      }
+                      className={location.pathname === item.path ? 'font-semibold' : ''}
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
@@ -138,7 +134,7 @@ function Header() {
                 <Bell />
                 {notifications.length > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold leading-none text-white select-none">
-                    {notifications.length > 9 ? "9+" : notifications.length}
+                    {notifications.length > 9 ? '9+' : notifications.length}
                   </span>
                 )}
               </Button>
@@ -149,7 +145,7 @@ function Header() {
                   <p className="font-medium">Notificaciones</p>
                   {overdueCount > 0 && (
                     <Badge variant="destructive" className="text-[10px]">
-                      {overdueCount} vencida{overdueCount > 1 ? "s" : ""}
+                      {overdueCount} vencida{overdueCount > 1 ? 's' : ''}
                     </Badge>
                   )}
                 </div>
@@ -167,13 +163,13 @@ function Header() {
                       className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
                       onClick={() => {
                         navigate({
-                          to: "/clients/$clientId",
+                          to: '/clients/$clientId',
                           params: { clientId: n.clientId },
-                        });
+                        })
                       }}
                     >
                       <div
-                        className={`mt-0.5 shrink-0 ${n.overdue ? "text-destructive" : "text-amber-500"}`}
+                        className={`mt-0.5 shrink-0 ${n.overdue ? 'text-destructive' : 'text-amber-500'}`}
                       >
                         {n.overdue ? (
                           <AlertTriangle className="size-4" />
@@ -182,21 +178,19 @@ function Header() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">
-                          {n.clientName}
-                        </p>
+                        <p className="text-sm font-medium truncate">{n.clientName}</p>
                         <p className="text-xs text-muted-foreground">
                           Cuota #{n.installment} — {formatCurrency(n.amount)}
                         </p>
                       </div>
                       <div className="shrink-0 text-right">
                         <p
-                          className={`text-xs font-medium ${n.overdue ? "text-destructive" : "text-amber-500"}`}
+                          className={`text-xs font-medium ${n.overdue ? 'text-destructive' : 'text-amber-500'}`}
                         >
                           {formatDate(n.dueDate)}
                         </p>
                         <p className="text-[10px] text-muted-foreground">
-                          {n.overdue ? "Vencida" : "Próxima"}
+                          {n.overdue ? 'Vencida' : 'Próxima'}
                         </p>
                       </div>
                     </DropdownMenuItem>
@@ -225,15 +219,13 @@ function Header() {
               <DropdownMenuItem>Perfil</DropdownMenuItem>
               <DropdownMenuItem>Configuraciones</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
-                Cerrar Sesión
-              </DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive">Cerrar Sesión</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export { Header };
+export { Header }

@@ -12,6 +12,7 @@ Admin dashboard for tracking personal loans, clients, and installment payments. 
 - **Forms:** react-hook-form + Zod
 - **Notifications:** sonner
 - **Linting:** ESLint 10
+- **Formatting:** Prettier
 
 ## Getting Started
 
@@ -21,6 +22,7 @@ npm run dev       # Start dev server
 npm run build     # Build for production (tsr generate + tsc + vite build)
 npm run preview   # Preview production build
 npm run lint      # Run ESLint
+npm run format    # Format code with Prettier
 ```
 
 ## Project Structure

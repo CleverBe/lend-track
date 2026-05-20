@@ -49,7 +49,12 @@ function ClientsPage() {
       <Card>
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle className="text-2xl">Clientes</CardTitle>
-          <Button onClick={() => { setEditingClient(null); setOpen(true) }}>
+          <Button
+            onClick={() => {
+              setEditingClient(null)
+              setOpen(true)
+            }}
+          >
             <Plus /> Nuevo Cliente
           </Button>
         </CardHeader>
@@ -92,7 +97,10 @@ function ClientsPage() {
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => { setEditingClient(client); setOpen(true) }}
+                        onClick={() => {
+                          setEditingClient(client)
+                          setOpen(true)
+                        }}
                       >
                         <Pencil />
                       </Button>

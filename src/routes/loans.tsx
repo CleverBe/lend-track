@@ -51,9 +51,7 @@ function LoansPage() {
 
   function toggleStatus(status: LoanStatus) {
     setSelectedStatuses((prev) =>
-      prev.includes(status)
-        ? prev.filter((s) => s !== status)
-        : [...prev, status]
+      prev.includes(status) ? prev.filter((s) => s !== status) : [...prev, status],
     )
   }
 
@@ -67,8 +65,7 @@ function LoansPage() {
     })
   }, [loans, selectedStatuses, dateFrom, dateTo, getLoanStatus])
 
-  const hasActiveFilters =
-    selectedStatuses.length < allStatuses.length || !!dateFrom || !!dateTo
+  const hasActiveFilters = selectedStatuses.length < allStatuses.length || !!dateFrom || !!dateTo
 
   function clearFilters() {
     setSelectedStatuses(allStatuses)
@@ -115,7 +112,9 @@ function LoansPage() {
 
             <div className="flex items-end gap-2">
               <div className="space-y-1">
-                <Label htmlFor="dateFrom" className="text-xs text-muted-foreground">Desde</Label>
+                <Label htmlFor="dateFrom" className="text-xs text-muted-foreground">
+                  Desde
+                </Label>
                 <Input
                   id="dateFrom"
                   type="date"
@@ -125,7 +124,9 @@ function LoansPage() {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="dateTo" className="text-xs text-muted-foreground">Hasta</Label>
+                <Label htmlFor="dateTo" className="text-xs text-muted-foreground">
+                  Hasta
+                </Label>
                 <Input
                   id="dateTo"
                   type="date"
@@ -167,7 +168,8 @@ function LoansPage() {
           <DialogHeader>
             <DialogTitle>Eliminar préstamo</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que deseas eliminar este préstamo? También se eliminarán todas sus cuotas. Esta acción no se puede deshacer.
+              ¿Estás seguro de que deseas eliminar este préstamo? También se eliminarán todas sus
+              cuotas. Esta acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
