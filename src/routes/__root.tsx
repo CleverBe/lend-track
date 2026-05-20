@@ -1,5 +1,8 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+
+import { Header } from '@/components/header'
+import { ClientsProvider } from '@/lib/store'
+import { LoansProvider } from '@/lib/loans-store'
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -7,9 +10,11 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   return (
-    <>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
+    <ClientsProvider>
+      <LoansProvider>
+        <Header />
+        <Outlet />
+      </LoansProvider>
+    </ClientsProvider>
   )
 }
