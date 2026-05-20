@@ -84,8 +84,9 @@ function Header() {
         <div className="flex items-center gap-6">
           <Link
             to="/"
-            className="text-xl font-bold tracking-tight hover:text-primary transition-colors"
+            className="flex items-center gap-2 text-xl font-bold tracking-tight hover:text-primary transition-colors"
           >
+            <img src="/logo.svg" alt="LendTrack" className="size-7" />
             LendTrack
           </Link>
 
